@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Repositories;
@@ -10,9 +8,8 @@ using WebApi.Services;
 
 namespace WebApi.Controllers
 {
-    [Route("api")]
-    [ApiController]
-    public class HomeController : ControllerBase
+    [Route("api/account")]
+    public class HomeController : Controller
     {        
         [HttpPost]
         [Route("login")]
@@ -38,5 +35,26 @@ namespace WebApi.Controllers
                 token = token
             };
         }
+
+        [HttpGet]
+        [Route("anonymous")]
+        [AllowAnonymous]
+        public string Anonymous() => "Este é o retorno do método que todos podem acessar";
+
+        [HttpGet]
+        [Route("authenticated")]
+        [Authorize]
+        public string Authenticated() => String.Format("Este é o retorno autenticado - {0}", User.Identity.Name);
+
+        [HttpGet]
+        [Route("dev")]
+        [Authorize(Roles = "DevMaster,DevBack")]
+        public string Developer() => "Este é o retorno autenticado para quem faz parte do perfil de Desenvolvedor";
+
+        [HttpGet]
+        [Route("owner")]
+        [Authorize(Roles = "Owner")]
+        public string Owner() => "Este é o retorno autenticado para quem faz parte do perfil de Dono";
+
     }
 }
