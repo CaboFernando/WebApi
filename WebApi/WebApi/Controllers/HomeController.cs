@@ -10,7 +10,7 @@ using WebApi.Services;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class HomeController : ControllerBase
     {        
@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         public async Task<ActionResult<dynamic>> Authenticate([FromBody]User model)
         {
             //Get user
-            var user = UserRepository.Get(model.Username, model.Password);
+            var user = UserRepository.Get(model.Username.ToLower(), model.Password);
 
             //Verify if user exist
             if (user == null)
