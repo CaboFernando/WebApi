@@ -39,22 +39,26 @@ namespace WebApi.Controllers
         [HttpGet]
         [Route("anonymous")]
         [AllowAnonymous]
-        public string Anonymous() => "Este é o retorno do método que todos podem acessar";
+        //public string Anonymous() => "Este é o retorno do método que todos podem acessar"; // <== Return string
+        public ActionResult Anonymous() => Ok(Json("Este é o retorno do método que todos podem acessar")); // <== Return Json
 
         [HttpGet]
         [Route("authenticated")]
         [Authorize]
-        public string Authenticated() => String.Format("Este é o retorno autenticado - {0}", User.Identity.Name);
+        //public string Authenticated() => String.Format("Este é o retorno autenticado - {0}", User.Identity.Name); // <== Return string
+        public ActionResult Authenticated() => Ok(Json("Este é o retorno autenticado - " + User.Identity.Name)); // <== Return Json
 
         [HttpGet]
         [Route("dev")]
         [Authorize(Roles = "DevMaster,DevBack")]
-        public string Developer() => "Este é o retorno autenticado para quem faz parte do perfil de Desenvolvedor";
+        //public string Developer() => "Este é o retorno autenticado para quem faz parte do perfil de Desenvolvedor"; // <== Return string
+        public ActionResult Developer() => Ok(Json("Este é o retorno autenticado para quem faz parte do perfil de Desenvolvedor")); // <== Return Json
 
         [HttpGet]
         [Route("owner")]
         [Authorize(Roles = "Owner")]
-        public string Owner() => "Este é o retorno autenticado para quem faz parte do perfil de Dono";
+        //public string Owner() => "Este é o retorno autenticado para quem faz parte do perfil de Dono"; // <== Return string
+        public ActionResult Owner() => Ok(Json("Este é o retorno autenticado para quem faz parte do perfil de Dono")); // <== Return Json
 
     }
 }
