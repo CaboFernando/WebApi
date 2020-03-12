@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using WebApi.Models;
+using WebApi.Services;
 
 namespace WebApi
 {
@@ -20,8 +23,17 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<UserstoreDatabaseSettings>(
+                Configuration.GetSection(nameof(UserstoreDatabaseSettings)));
+
+            services.AddSingleton<IUserstoreDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<UserstoreDatabaseSettings>>().Value);
+
+            services.AddSingleton<UserService>();
+
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(option => option.UseMemberCasing());
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
             services.AddAuthentication(x =>

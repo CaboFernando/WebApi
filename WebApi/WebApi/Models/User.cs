@@ -16,8 +16,8 @@ namespace WebApi.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [BsonElement("Name")]
-        [JsonProperty("Name")]
+        [BsonElement()]
+        [JsonProperty()]
         public string Username { get; set; }
 
         public string Password { get; set; }

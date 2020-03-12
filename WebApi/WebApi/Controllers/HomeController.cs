@@ -10,28 +10,36 @@ namespace WebApi.Controllers
 {
     [Route("api/account")]
     public class HomeController : Controller
-    {        
+    {
+        private readonly UserService _userService;
+
+        public HomeController(UserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpPost]
         [Route("login")]
         public async Task<ActionResult<dynamic>> Authenticate([FromBody]User model)
         {
             //Get user
-            var user = UserRepository.Get(model.Username.ToLower(), model.Password);
+            //var user = UserRepository.Get(model.Username.ToLower(), model.Password);
+            var userDb = _userService.Get(model.Username, model.Password);
 
             //Verify if user exist
-            if (user == null)
+            if (userDb == null)
                 return NotFound(new { message = "Usuário ou senha inválidos" });
 
             //Generating token
-            var token = TokenService.GenerateToken(user);
+            var token = TokenService.GenerateToken(userDb);
 
             //Password hide
-            user.Password = "";
+            userDb.Password = "";
 
             //Data return
             return new
             {
-                user = user,
+                user = userDb,
                 token = token
             };
         }
