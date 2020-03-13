@@ -23,7 +23,7 @@ namespace WebApi.Services
         public Csv Get(string id) =>
             _csvs.Find<Csv>(csv => csv.Id == id).FirstOrDefault();
 
-        public Csv Get(string nome, string cidade, string uf) =>
-            _csvs.Find<Csv>(csv => csv.Nome == nome || csv.Cidade == cidade || csv.UF == uf ).FirstOrDefault();
+        public List<Csv> Get(string nome, string cidade, string uf) =>
+            _csvs.Find(csv => csv.Nome == nome || csv.Cidade == cidade || csv.UF == uf ).ToList();
     }
 }

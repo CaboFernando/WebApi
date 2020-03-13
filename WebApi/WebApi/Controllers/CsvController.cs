@@ -36,9 +36,12 @@ namespace WebApi.Controllers
 
         [HttpGet("{filtro:length(24)}")]
         [Route("ByName")]
-        public ActionResult ByName(string filtro)
+        public ActionResult<List<Csv>> ByName(string filtro)
         {
-            return Ok(Json("Este é o retorno do método ByName com filtro: " + filtro));
+            if (filtro == null)
+                return NotFound();
+
+            return _csvService.Get(filtro, filtro, filtro);
         }
 
     }
