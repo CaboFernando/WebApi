@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace WebApi.Models
 {
+    [BsonIgnoreExtraElements]
     public class Csv
     {
         [BsonId]

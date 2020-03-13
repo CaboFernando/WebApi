@@ -13,19 +13,16 @@ namespace WebApi.Controllers
     [Route("api/csv")]
     public class CsvController : Controller
     {
-        //private readonly CsvService _csvService;
+        private readonly CsvService _csvService;
 
-        //public CsvController(CsvService csvService)
-        //{
-        //    _csvService = csvService;
-        //}
+        public CsvController(CsvService csvService)
+        {
+            _csvService = csvService;
+        }
 
         [HttpGet]
         [Route("All")]
-        public ActionResult All()
-        {
-            return Ok(Json("Este é o retorno do método All"));
-        }
+        public ActionResult<List<Csv>> All() => _csvService.Get();
 
         [HttpGet("{id:length(24)}")]
         [Route("ById")]
