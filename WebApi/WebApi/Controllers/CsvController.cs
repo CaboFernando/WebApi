@@ -44,5 +44,12 @@ namespace WebApi.Controllers
             return _csvService.Get(filtro, filtro, filtro);
         }
 
+        [HttpPost()]
+        [Route("PostCsv")]
+        public void PostCsv()
+        {
+            _csvService.SetCsv();
+        }
+
     }
 }
