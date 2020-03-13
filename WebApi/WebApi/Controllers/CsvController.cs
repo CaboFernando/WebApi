@@ -1,11 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
-using WebApi.Repositories;
 using WebApi.Services;
-using System.Text.Json;
 using System.Collections.Generic;
 
 namespace WebApi.Controllers
