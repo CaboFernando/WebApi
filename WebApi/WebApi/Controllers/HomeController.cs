@@ -23,8 +23,8 @@ namespace WebApi.Controllers
         public async Task<ActionResult<dynamic>> Authenticate([FromBody]User model)
         {
             //Get user
-            //var user = UserRepository.Get(model.Username.ToLower(), model.Password);
-            var userDb = _userService.Get(model.Username, model.Password);
+            //var user = UserRepository.Get(model.Username.ToLower(), model.Password); // <== Get using data in List
+            var userDb = _userService.Get(model.Username, model.Password); // <== Get using data base connection
 
             //Verify if user exist
             if (userDb == null)
