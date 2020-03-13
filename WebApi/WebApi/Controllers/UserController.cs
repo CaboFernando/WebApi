@@ -8,11 +8,11 @@ using WebApi.Services;
 namespace WebApi.Controllers
 {
     [Route("api/account")]
-    public class HomeController : Controller
+    public class UserController : Controller
     {
         private readonly UserService _userService;
 
-        public HomeController(UserService userService)
+        public UserController(UserService userService)
         {
             _userService = userService;
         }
