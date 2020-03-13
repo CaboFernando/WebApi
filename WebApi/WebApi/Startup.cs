@@ -23,13 +23,14 @@ namespace WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<UserstoreDatabaseSettings>(
-                Configuration.GetSection(nameof(UserstoreDatabaseSettings)));
+            services.Configure<UserstoreDatabaseSettings>(Configuration.GetSection(nameof(UserstoreDatabaseSettings)));
+            //services.Configure<CsvstoreDatabaseSettings>(Configuration.GetSection(nameof(CsvstoreDatabaseSettings)));
 
-            services.AddSingleton<IUserstoreDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<UserstoreDatabaseSettings>>().Value);
+            services.AddSingleton<IUserstoreDatabaseSettings>(sp => sp.GetRequiredService<IOptions<UserstoreDatabaseSettings>>().Value);
+            //services.AddSingleton<ICsvstoreDatabaseSettings>(sp => sp.GetRequiredService<IOptions<CsvstoreDatabaseSettings>>().Value);
 
             services.AddSingleton<UserService>();
+            //services.AddSingleton<CsvService>();
 
             services.AddCors();
             services.AddControllers()
