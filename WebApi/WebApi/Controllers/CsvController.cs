@@ -26,9 +26,12 @@ namespace WebApi.Controllers
 
         [HttpGet("{id:length(24)}")]
         [Route("ById")]
-        public ActionResult ById(string id)
+        public ActionResult<Csv> ById(string id)
         {
-            return Ok(Json("Este é o retorno do método ById com Id: " + id));
+            if (id == null)
+                return NotFound();
+
+            return _csvService.Get(id);
         }
 
         [HttpGet("{filtro:length(24)}")]
