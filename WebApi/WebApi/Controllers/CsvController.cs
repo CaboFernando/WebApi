@@ -2,6 +2,7 @@
 using WebApi.Models;
 using WebApi.Services;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
@@ -17,10 +18,12 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("All")]
+        [Authorize]
         public ActionResult<List<Csv>> All() => _csvService.Get();
 
         [HttpGet("{id:length(24)}")]
         [Route("ById")]
+        [Authorize]
         public ActionResult<Csv> ById(string id)
         {
             if (id == null)
@@ -31,6 +34,7 @@ namespace WebApi.Controllers
 
         [HttpGet("{filtro:length(24)}")]
         [Route("ByName")]
+        [Authorize]
         public ActionResult<List<Csv>> ByName(string filtro)
         {
             if (filtro == null)
@@ -40,6 +44,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost()]
+        [Authorize]
         [Route("PostCsv")]
         public void PostCsv()
         {
