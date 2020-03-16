@@ -38,8 +38,8 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("createUser")]
-        public void create([FromBody]User user)
+        [Route("create")]
+        public void CreateUser([FromBody]User user)
         {
             _userService.Create(user);
         }
@@ -47,12 +47,12 @@ namespace WebApi.Controllers
         [HttpGet]
         [Route("anonymous")]
         [AllowAnonymous]
-        public ActionResult Anonymous() => Ok(Json("Este é o retorno do método que todos podem acessar"));
+        public ActionResult GetAnonymous() => Ok(Json("Este é o retorno do método que todos podem acessar"));
 
         [HttpGet]
-        [Route("authenticated")]
+        [Route("auth")]
         [Authorize]
-        public ActionResult<User> Authenticated()
+        public ActionResult<User> GetAuthenticated()
         {
             var user = _userService.Get();
             return user.Find(x => x.Username == User.Identity.Name);
@@ -61,7 +61,7 @@ namespace WebApi.Controllers
         [HttpGet]
         [Route("dev")]
         [Authorize(Roles = "DevMaster,DevBack")]
-        public ActionResult<List<User>> Developer()
+        public ActionResult<List<User>> GetAuthenticatedByDev()
         {
             var users = _userService.Get();
             return users.FindAll(x => (x.Role == "DevMaster" && x.Username == User.Identity.Name) || (x.Role == "DevBack" && x.Username == User.Identity.Name));
@@ -70,7 +70,7 @@ namespace WebApi.Controllers
         [HttpGet]
         [Route("owner")]
         [Authorize(Roles = "Owner")]
-        public ActionResult<List<User>> Owner()
+        public ActionResult<List<User>> GetAuthenticatedByOwner()
         {
             var user = _userService.Get();
             return user.FindAll(x => x.Username == User.Identity.Name && x.Role == "Owner");

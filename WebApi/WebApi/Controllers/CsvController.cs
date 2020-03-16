@@ -17,14 +17,14 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("All")]
+        [Route("all")]
         [Authorize]
-        public ActionResult<List<Csv>> All() => _csvService.Get();
+        public ActionResult<List<Csv>> GetAll() => _csvService.Get();
 
         [HttpGet("{id:length(24)}")]
-        [Route("ById")]
+        [Route("byId")]
         [Authorize]
-        public ActionResult<Csv> ById(string id)
+        public ActionResult<Csv> GetById(string id)
         {
             if (id == null)
                 return NotFound();
@@ -33,9 +33,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{filtro:length(24)}")]
-        [Route("ByName")]
+        [Route("byName")]
         [Authorize]
-        public ActionResult<List<Csv>> ByName(string filtro)
+        public ActionResult<List<Csv>> GetByName(string filtro)
         {
             if (filtro == null)
                 return NotFound();
@@ -45,7 +45,7 @@ namespace WebApi.Controllers
 
         [HttpPost()]
         [Authorize]
-        [Route("PostCsv")]
+        [Route("post")]
         public void PostCsv()
         {
             _csvService.SetCsv();
